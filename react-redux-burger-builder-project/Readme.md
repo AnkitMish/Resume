@@ -8,18 +8,18 @@ A Burger builder Application built using React.Js and Redux. This application ES
 ***
 
   ### Technology Stack
-    * JSX
-    * ES6
-    * HTML5
-    * CSS3
-    * WebPack
-    * Babel
-    * [Firebase](https://firebase.google.com/) for data storage and deployment
+   * JSX
+   * ES6
+   * HTML5
+   * CSS3
+   * WebPack
+   * Babel
+   * [Firebase](https://firebase.google.com/) for data storage and deployment
   
   ### Library Stack
-    * React Router
-    * Redux
-    * Axios
+   * React Router
+   * Redux
+   * Axios
     
 ***
   

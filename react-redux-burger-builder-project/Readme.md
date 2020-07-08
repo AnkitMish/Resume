@@ -22,5 +22,16 @@ A Burger builder Application built using React.Js and Redux. This application ES
    * Axios
     
 ***
+
+### Get started
+Download the project, you will observe the following directory structure
+        react-redux-burger-builder-project
+        ├── config
+        ├── node_modules
+        └── redux-adv-burger--02-finished
+        
+The project can be kickstarted using the following commands:
+  `npm install --save`
+  `npm run`  # This will open the react app in your default web browser
   
  

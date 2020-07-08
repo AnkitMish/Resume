@@ -38,10 +38,13 @@ The project can be kickstarted using the following commands:
 
 ### App deployment
 The app can be deployed on [firebase](https://firebase.google.com) in 4 simple steps
- `     1. npm run build
+
+      1. npm run build
       2. firebase login
       3. firebase init
-      4. firebase deploy`
+      4. firebase deploy
+      
+  ### [React Burger Builder Live Web App](https://react-burger-e8f17.web.app/)
 
 
  

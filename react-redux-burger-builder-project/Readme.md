@@ -31,6 +31,7 @@ Download the project, you will observe the following directory structure
         └── redux-adv-burger--02-finished
         
 The project can be kickstarted using the following commands:
+
   `npm install --save`
   
   `npm run`  # This will open the react app in your default web browser

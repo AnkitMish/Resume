@@ -32,6 +32,7 @@ Download the project, you will observe the following directory structure
         
 The project can be kickstarted using the following commands:
   `npm install --save`
+  
   `npm run`  # This will open the react app in your default web browser
   
  

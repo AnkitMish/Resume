@@ -4,6 +4,7 @@
 const browsersync = require("browser-sync").create();
 const del = require("del");
 const gulp = require("gulp");
+var deploy = require('gulp-gh-pages');
 const merge = require("merge-stream");
 const autoprefixer = require("gulp-autoprefixer");
 const cleanCSS = require("gulp-clean-css");
@@ -15,16 +16,15 @@ const uglify = require("gulp-uglify");
 const pkg = require('./package.json');
 const run = require('gulp-run');
 const AWS = require('aws-sdk');
-const runSequence = require('run-sequence');
 
 const s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
-gulp.task('serveprod', function() {
-  connect.server({
-    root: [your_project_path],
-    port: process.env.PORT || 8080, // localhost:5000
-    livereload: false
-  });
+gulp.task('deploy', function () {
+  return gulp.src("./prod/**/*")
+    .pipe(deploy({ 
+      remoteUrl: "https://github.com/AnkitMish/AnkitMish.github.io.git",
+      branch: "master"
+    }))
 });
 
 // BrowserSync

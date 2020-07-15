@@ -4,3 +4,4 @@
   *  Web Dev Projects
   
      - [Burger Builder](https://github.com/AnkitMish/Resume/tree/master/react-redux-burger-builder-project)
+     - [React News App] (https://github.com/AnkitMish/react-newsapp)

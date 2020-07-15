@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  .searchResults {
+      text-align: center;
+  }
+  
+  .searchCard {
+      text-align: start;
+      background-color: whitesmoke;
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      border: 0.5pt solid dimgray;
+      border-radius: 5px;
+      margin-top: 1%;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 1%;
+      overflow: auto;
+      cursor: pointer;
+  }
+  
+  .searchCard:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  .searchCard img {
+      width: 20%;
+      float: left;
+      height: 80%;
+      object-fit: cover;      
+      border-radius: 5px 5px 0 0;
+      padding-inline-end: 2%;
+  }
+
+  .searchCard h4 {
+      margin-top: 0;
+      margin-bottom: 0;
+      float: inline-start;
+  }
+
+  div.shortBody {
+      white-space: nowrap;
+      overflow: -moz-hidden-unscrollable;;
+      text-overflow: ellipsis;
+  }
+
+  .close {
+      float: right;
+      font-family: sans-serif;
+      font-size: large;
+      color: purple;
+      cursor: pointer
+  }
+  
+  .close:hover {
+      
+  }
+  
+</style>
+</head>
+<body>
+  
+<div class="searchResults">
+  <div class="searchCard">
+    <img src="https://media.wired.com/photos/5e471046e7120600088b2022/191:100/w_1280,c_limit/Security_robbocalls-84289419.jpg" alt="Avatar">
+    <h4><b>Jane Doe</b></h4> 
+      <div class="shortBody" style="display: block;"><br>Interior Designer a a really well etablished and a renowned manyfactures whose experiences in design has stretched through vast eras, starting in 2016.</div>
+  <div class="fullBody" style="display: none;"><span class='close'>x</span><br>Interior Designer a a really well etablished and a renowned manyfactures whose experiences in design has stretched through vast eras, starting in 2016.</div>
+</div>
+
+  <div class="searchCard" style="display: none;">
+    <img src="img_avatar2.png" alt="Avatar">
+    <h4><b>Jane Doe</b></h4> 
+    <div class="container"><br>
+      <div class=shortBody> Interior Designer</div>
+    </div>
+  </div>
+  <button id="ShowButton" onclick="toggleShow()">Show More</button>
+</div>
+
+<script>
+
+  // handle opening of cards
+  var coll = document.getElementsByClassName("searchCard");
+  
+  for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+	  var shortContent = this.querySelector("div.shortBody");
+	  var fullContent = this.querySelector("div.fullBody");
+	  if (shortContent.style.display === "block") {
+	      shortContent.style.display = "none";
+	      fullContent.style.display = "block";
+	  }
+      });
+  }
+
+  // handle closing of cards with news results
+  var closebtns = document.getElementsByClassName("close");
+  
+  /* Loop through the elements, and hide the parent, when clicked on */
+  for (i = 0; i < closebtns.length; i++) {
+      closebtns[i].addEventListener("click", function(e) {
+	  e.stopImmediatePropagation();
+	  this.parentElement.parentElement.querySelector("div.shortBody").style.display = "block";
+	  this.parentElement.style.display = 'none';
+      });
+  }
+
+  // handle show more and show less behaviour on page as well as buttons
+  function toggleShow() {
+      var x = document.getElementsByClassName("searchCard");
+      console.log("insile toggle show fubction");
+      console.log(x);
+      for(i=4; i< x.length; i++) {
+	  if (x[i].style.display === "none") {
+	      x[i].style.display = "block";
+	      document.querySelector('#ShowButton').innerText="Show Less";
+	  } else {
+	      x[i].style.display = "none";
+	      document.querySelector('#ShowButton').innerText="Show More";
+	  }	
+      }
+      
+  }
+</script>
+
+</body>
+</html> 

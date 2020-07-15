@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Razakh hw6</title>
+    <!-- Load d3.js -->
+
+    <style>           
+      .column {
+	  float: left;
+	  padding: 10px;	  
+      }
+      .left, .right {
+	  width: 25%;
+      }
+      .middle {
+	  width: 50%;
+      }
+      .sidenav {
+	  position: fixed;
+	  right: 75%;
+	  padding-inline-end: 5%;
+      }
+      .sidenav button {
+	  background-color: whitesmoke;
+	  border: 0.5px solid dimgray;
+	  color: black;
+	  padding: 15px 32px;
+	  text-align: center;
+	  text-decoration: none;
+	  font-size: 15px;
+	  font-family: serif;
+	  cursor: pointer;
+	  width: 150px;
+	  display: block;
+      }
+
+      .sidenav button:not(:last-child) {
+	  border-bottom: none; /* Prevent double borders */
+      }
+
+      .sidenav button.active {
+	  background-color: #555555;
+	  color: white;
+      }
+
+      .sidenav button:hover {
+	  background-color: green;
+	  color: white;
+      }
+      
+      .slides-section {
+	  position: relative;
+	  width: 60%;
+	  margin-top: 20px;
+	  font-size: 12px;     
+      }
+      
+      .slides-section img{
+	  width: 100%;
+	  height: 250px;
+	  /* object-fit: cover;       */
+      }
+
+      .banner {
+	  display: flex;
+      }
+
+      .wordcloud-section {
+	  background-color: aliceblue;
+	  
+	  width: 35%;
+	  height: 250px;
+	  margin-left: 5%;
+	  
+	  margin-top: 3%;
+      }
+      
+      .myslides{
+	  display:none;     
+      }
+      
+      .slides-section .content {
+	  text-align: center;
+	  position: absolute; /* Position the background text */
+	  bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+	  background: rgb(0, 0, 0); /* Fallback color */
+	  background: rgba(0, 0, 0, 0.4); /* Black background with 0.5 opacity */
+	  color: #f1f1f1; /* Grey text */
+	  width: 100%; /* Full width */
+	  display: none;
+      }
+      
+      h2 {
+	  text-align: center;
+	  padding-top: 10px;
+      }
+      
+      hr {
+	  border-top: 1pt dotted black;
+	  width: 100%;
+	  position: relative;
+	  top: -25px;
+      }
+       
+      .cardColumn {
+	  float: left;
+	  width: 25%;
+      }
+      .myCards {
+	  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+	  transition: 0.3s;
+	  width: 95%;
+	  height: 380px;
+	  border-radius: 5px;
+	  background: whitesmoke;
+      }
+      
+      .cnn-section {
+	  margin-top: -15px;
+      }
+      
+      .cnn-section:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	  padding-block: 13px;
+      }
+      
+      .cnn-section .content {
+	  text-align: center;
+	  font-size: 12px;
+	  color: black;
+      }
+      
+      .cnn-section a {
+	  text-decoration: none;
+      }
+      
+      .cnn-section img{
+	  width: 100%;
+	  height: 125px;
+	  object-fit: cover;
+	  border-radius: 7px;
+      }
+      
+      .fox-section {
+	  margin-top: -15px;
+      }
+      
+      .fox-section:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	  padding-block: 13px;
+      }
+      
+      .fox-section .content {
+	  text-align: center;
+	  font-size: 12px;
+	  color: black;
+      }
+      
+      .fox-section a {
+	  text-decoration: none;
+      }
+      
+      .fox-section img{
+	  width: 100%;
+	  height: 125px;
+	  object-fit: cover;
+	  border-radius: 7px;
+      }
+      
+      .form-inline{
+      }
+      
+      .form-inline input, .form-inline button {
+	  vertical-align: middle;
+	  margin: 5px 20px 5px 10px;
+	  background-color: #fff;
+	  border: 1px solid #ddd;
+	  height: 20px;
+	  width: 100px;
+      }
+      
+      .form-inline label {
+	  margin: 15px 15px 15px 0px;
+      }
+      
+      .search-box {
+	  height: 110px;
+	  border-radius: 5px;
+	  background: whitesmoke;
+	  padding: 20px;
+	  font-size: 12px;
+	  
+      }
+      
+      .form-inline select {
+  	  width: 100px;
+      }
+      
+      .form-inline input[type="submit"], .form-inline button {
+  	  background-color: revert;
+  	  width: 50px;
+      }
+      
+      .form-inline input[type="submit"]:hover, .form-inline button:hover {
+	  background-color: green;
+	  color: white;
+      }
+
+      .form-inline input:invalid {
+      	  border: 1px solid red;
+      }
+
+      .form-inline input:valid {
+	  border: none;
+      }
+
+      .form-inline input:required:invalid {
+  border-color: red;
+}
+      
+      .row{
+	  display: flex;
+      }
+
+      .col-33 {
+	  width: 33.33%;
+	  text-align: center;
+      }
+      
+      .col-50-1{
+	  width: 50%;
+	  text-align: right;
+	  padding-inline: 10px;
+      }
+      .col-50-2{
+	  width: 50%;
+	  text-align: left;
+	  padding-inline: 10px;
+      }
+      
+      .col-33:after, .col-50-1:after, .col-50-2:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	  padding-block: 5px;
+      }
+
+      .searchResults {
+	  margin-top: 3%;
+	  text-align: center;
+      }
+  
+      .searchCard {
+	  background-color: whitesmoke;
+	  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2);
+	  transition: 0.3s;
+	  border: 0.5pt solid dimgray;
+	  border-radius: 5px;
+	  margin-top: 1%;
+	  width: 80%;
+	  margin-left: auto;
+	  margin-right: auto;
+	  padding: 3%;
+	  overflow: auto;
+	  cursor: pointer;
+	  font-size: 13pt;
+	  text-align: left;
+	  display: flex;
+	  flex-wrap: nowrap;
+      }
+      
+      .searchCard:hover {
+	  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+      }
+      
+      .searchCard img {
+	  float: left;     
+	  border-radius: 5px;
+	  width: 60pt;
+	  height: 60pt;
+	  margin-right: 10px;
+      }
+
+      .searchCard img:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	  padding-block: 13px;      
+      }
+
+      .searchCard b.title {
+	  margin-top: 0;
+	  margin-bottom: 0;
+	  font-size: 14pt;
+      }
+      
+      div.shortBody {
+	  white-space: nowrap;
+	  overflow: -moz-hidden-unscrollable;;
+	  text-overflow: ellipsis;
+	  line-height: 25pt;
+      }
+
+      div.fullBody {
+	  cursor: auto;
+      }
+
+      div.fullBody b {
+	  line-height: 25pt;
+      }
+      
+      .close {
+	  float: right;
+	  font-family: sans-serif;
+	  font-size: large;
+	  color: purple;
+	  cursor: pointer
+      }
+      
+      .searchCard ul{
+	  list-style: none;
+	  padding-left: 0;
+	  margin-top: 0;
+	  margin-bottom: 0;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="column left">
+	<div class="sidenav"> 
+	  <button id="btn_1" class="" onclick="loadJSON()">Google News</button>
+	  <button id="btn_2" class="active" onclick="loadSearchPage()">Search</button>
+	</div>
+      </div>
+      <div class="column middle">
+	
+      </div>
+      <div class="column right">
+      </div>
+    </div>
+    <script src="https://d3js.org/d3.v4.js"></script>
+
+    <!-- Load d3-cloud -->
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+    <script language="javaScript">
+      var myIndex = 0;
+      var timer = 0;
+      
+      function loadJSON() {
+	  // Put everything into place like it was before. But with JS power!
+	  html_text="<div class='banner'><div class='slides-section'></div><div class='wordcloud-section'></div></div><h2>CNN</h2><hr><div class='cnn-section'></div><h2>Fox News</h2><hr><div class='fox-section'></div></div>";
+
+	  document.querySelector(".middle").innerHTML=html_text;
+
+	  //Make button blue?
+	  let btn_1 = document.getElementById('btn_1');
+	  btn_1.classList.toggle("active");
+	  let btn_2 = document.getElementById('btn_2');
+	  btn_2.classList.toggle("active");
+	  
+	  // Take slider data from end point
+	  xmlhttp1=new XMLHttpRequest();
+	  xmlhttp1.open("GET",url+"/news",true);
+	  xmlhttp1.onreadystatechange= function () {
+	      if(xmlhttp1.readyState == 4 && xmlhttp1.status == 200) {
+		  var jsonSlideData = JSON.parse(xmlhttp1.responseText);
+		  viewSlides(jsonSlideData);
+	      }
+	  }
+	  xmlhttp1.send();
+
+	  // Take cnn data from end point
+	  xmlhttp2=new XMLHttpRequest();
+	  xmlhttp2.open("GET",url+"/cnn",true);
+	  xmlhttp2.onreadystatechange= function () {
+	      if(xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
+		  var jsonCnnData = JSON.parse(xmlhttp2.responseText);
+		  viewCnn(jsonCnnData);
+	      }
+	  }
+	  xmlhttp2.send();
+
+	  // Take fox data from end point
+	  xmlhttp3=new XMLHttpRequest();
+	  xmlhttp3.open("GET",url+"/fox",true);
+	  xmlhttp3.onreadystatechange= function () {
+	      if(xmlhttp3.readyState == 4 && xmlhttp3.status == 200) {
+		  var jsonFoxData = JSON.parse(xmlhttp3.responseText);
+		  viewFox(jsonFoxData);
+	      }
+	  }
+	  xmlhttp3.send();
+
+	  // Take data from end point for wordcloud
+	  xmlhttp14=new XMLHttpRequest();
+	  xmlhttp14.open("GET",url+"/words",true);
+	  xmlhttp14.onreadystatechange= function () {
+	      if(xmlhttp14.readyState == 4 && xmlhttp14.status == 200) {
+		  var jsonWordData = JSON.parse(xmlhttp14.responseText);
+		  viewWordCloud(jsonWordData);
+	      }
+	  }
+	  xmlhttp14.send();
+
+      }
+
+      function viewWordCloud(jsonObj)
+      {
+	    generateWordCloudHTML(jsonObj.words);
+      }
+
+      function generateWordCloudHTML(myWords) {  
+          console.log(myWords);
+	  // set the dimensions and margins of the graph
+          var margin = {top: 5, right: 5, bottom: 5, left: 5},
+              width = 233,
+              height = 250;
+
+          // append the svg object to the body of the page
+          var svg = d3.select(".wordcloud-section").append("svg")
+              .attr("width", width)
+              .attr("height", height)
+              .append("g")
+              .attr("transform",
+                "translate(" + 0 + "," + 0 + ")");
+
+          // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
+          // Wordcloud features that are different from one word to the other must be here
+          var layout = d3.layout.cloud()
+              .size([width, height])
+              .words(myWords.map(function(d) { return {text: d.w, size:d.c}; }))
+              .padding(10)        //space between words
+              .rotate(function() { return ~~(Math.random() * 2) * 90; })
+              .fontSize(function(d) { return 0.5* d.size; })      // font size of words
+              .on("end", draw);
+          layout.start();
+	  
+          // This function takes the output of 'layout' above and draw the words
+          // Wordcloud features that are THE SAME from one word to the other can be here
+          function draw(words) {
+              svg
+              .append("g")
+              .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+              .selectAll("text")
+              .data(words)
+              .enter().append("text")
+              .style("font-size", function(d) { console.log(d.text, d.size); return d.size; })
+              .style("fill", "black")
+              .attr("text-anchor", "middle")
+              .style("font-family", "Impact")
+              .attr("transform", function(d) {
+                  return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+              })
+              .text(function(d) { return d.text; });
+          }
+
+       }
+
+      
+      function viewSlides(jsonObj)
+      {
+	  generateSlidesHTML(jsonObj);
+	  document.querySelector(".slides-section").innerHTML=html_text;
+	  carousel();
+      }      
+
+      function generateSlidesHTML(jsonObj) {
+	  root=jsonObj.DocumentElement;	  
+	  articles=jsonObj.news;
+	  if(articles == undefined) {alert("Error: No top news entries"); return false;}
+	  html_text="";
+	  // output the images
+	  for(i=0;i<articles.length;i++) {
+	      articleNode=articles[i];
+	      html_text+="<a target=\"_blank\" href=\""+articleNode.url+"\"><img class=\"mySlides\" src=\""+articleNode.urlToImage+"\"><div class=\"content\"><h3>"+articleNode.title+"</h3><p>"+articleNode.description+"</p></div></a>";
+	  }      
+      }
+      
+      function viewCnn(jsonObj)
+      {
+	  generateCnnHTML(jsonObj.cnn);
+	  document.querySelector(".cnn-section").innerHTML=html_text;
+      }
+
+       function generateCnnHTML(jsonObj) {  
+	  articles=jsonObj;
+	  if(articles == undefined) {alert("Error: No cnn news entries"); return false;}
+	  html_text="";
+	  // output the images
+	  for(i=0;i<articles.length;i++) {
+	      articleNode=articles[i];
+	      html_text+="<div class='cardColumn'><a target=\"_blank\" href=\""+articleNode.url+"\"><div class='myCards'><img src=\""+articleNode.urlToImage+"\"><div class=\"content\"><h3>"+articleNode.title+"</h3><p>"+articleNode.description+"</p></div></div><\a></div>";
+	  }      
+       }
+
+      //add information from fox into document
+      function viewFox(jsonObj)
+      {
+	  generateCnnHTML(jsonObj.fox);
+	  document.querySelector(".fox-section").innerHTML=html_text;
+      }       
+      
+      function carousel() {
+       	  var i;
+       	  var x = document.getElementsByClassName("mySlides");
+	  var y = document.getElementsByClassName("content");
+       	  for (i = 0; i < x.length; i++) {
+       	      x[i].style.display = "none";
+	      y[i].style.display = "none";
+       	  }
+       	  myIndex++;
+       	  if (myIndex > x.length) {myIndex = 1}
+	  y[myIndex-1].style.display = "block";
+       	  x[myIndex-1].style.display = "block";
+       	  timer = setTimeout(carousel, 2000); // Change image every 2 seconds
+      }
+      
+      // handle show more and show less behaviour on page as well as buttons
+      function toggleShow() {
+	  var x = document.getElementsByClassName("searchCard");
+	  for(i=5; i< x.length; i++) {
+	      if (x[i].style.display === "none") {
+		  x[i].style.display = "flex";
+		  document.querySelector('#ShowButton').innerText="Show Less";
+	      } else {
+		  x[i].style.display = "none";
+		  document.querySelector('#ShowButton').innerText="Show More";
+	      }	
+	  }
+      }
+
+    //   function getMMDDYYYY(publishedDate) {
+    //   var givenDate = Date.parse(publishedDate);
+	//   var m = givenDate.getMonth();
+	//   d = givenDate.getDate();
+	//   y = givenDate.getFullYear();
+	//   ret = m+"/"+d+"/"+y;
+	//   console.log(retval);
+	//   return ret;
+    //   }
+      
+      function generateNewsResultsHTML(articles)
+      {
+	  html_text="";
+	  for(i=0; i<articles.length;i++) {
+	      articleNode=articles[i];
+	      if(i<5) {
+		  html_text+="<div class='searchCard'>";
+	      }
+	      else {
+		  html_text+="<div class='searchCard' style='display: none;'>";
+	      }
+	      html_text+="<img src=\""+articleNode.urlToImage+"\"><div style='width:80%'><ul><li><b class='title'>"+articleNode.title+"</b><li><div class='shortBody' style='display: block;'>"+articleNode.description+"</div><li><div class='fullBody' style='display: none;'><b>Author: </b>"+articleNode.author+"<br><b>Source: </b>"+articleNode.source.name+"<br><b>Date: </b>"+articleNode.publishedAt+"<br>"+articleNode.description+"<br><a target='_blank' href=\""+articleNode.url+"\">See Original Post</a></div></div></ul><span style='display: none;' class='close'>x</span></div>";
+	  }
+	  // add show more button with more than 5 loaded results
+	  if(i>4)
+	  {
+	      html_text+="<button id='ShowButton' onclick='toggleShow()'>Show More</button>";
+	  }	  	  
+      }
+      
+      function viewNewsResults(jsonObj) {
+	  if(jsonObj.status == 'error')
+	  {
+	      alert(jsonObj.message);
+	      return;
+	  }
+	  generateNewsResultsHTML(jsonObj.articles);
+	  document.querySelector(".searchResults").innerHTML = html_text;
+
+	  // handle opening of cards
+	  var coll = document.getElementsByClassName("searchCard");
+	  
+	  for (i = 0; i < coll.length; i++) {
+	      coll[i].addEventListener("click", function() {
+		  var shortContent = this.querySelector("div.shortBody");
+		  var fullContent = this.querySelector("div.fullBody");
+		  var closeButton = this.querySelector(".close");
+		  if (shortContent.style.display === "block") {
+		      shortContent.style.display = "none";
+		      fullContent.style.display = "inline";
+		      closeButton.style.display= "block";
+		  }
+	      });
+	  }
+	  
+	  // handle closing of cards with news results
+	  var closebtns = document.getElementsByClassName("close");
+	  
+	  /* Loop through the elements, and hide the parent, when clicked on */
+	  for (i = 0; i < closebtns.length; i++) {
+	      closebtns[i].addEventListener("click", function(e) {
+		  e.stopImmediatePropagation();
+		  this.parentElement.querySelector("div.shortBody").style.display = "block";
+		  this.parentElement.querySelector("div.fullBody").style.display = 'none';
+		  this.parentElement.querySelector(".close").style.display = 'none';
+	      });
+	  }	  
+      }
+      
+      function validateForm(){
+       	  var x = document.forms["myform"]["from"].value;
+       	  var y = document.forms["myform"]["to"].value;
+       	  var xDate = new Date();
+       	  var yDate = new Date();
+	  var xSplit = x.split('-');
+	  var ySplit = y.split('-');
+	  xDate.setFullYear(xSplit[0]);
+	  xDate.setMonth(xSplit[1]);
+	  xDate.setDate(xSplit[2]);
+	  
+	  yDate.setFullYear(ySplit[0]);
+	  yDate.setMonth(ySplit[1]);
+	  yDate.setDate(ySplit[2]);
+	  
+       	  if(xDate > yDate) {
+       	      alert("Incorrect time");	  
+	      return false;
+	  }
+
+	  // q is keyword-source-from-to with '!' delimited
+	  var qArray = [document.forms["myform"]["keyword"].value, document.forms["myform"]["source"].value, x, y];
+	  var q = qArray.join('!');
+	  console.log("The query is going to be " + q);
+
+	  // Take news results from end point
+	  xmlhttp5=new XMLHttpRequest();
+	  xmlhttp5.open("GET",url+"/results/"+q,true);
+	  xmlhttp5.onreadystatechange= function () {
+	      if(xmlhttp5.readyState == 4 && xmlhttp5.status == 200) {
+	      var jsonNewsResultsData = JSON.parse(xmlhttp5.responseText);
+		  // console.log(jsonNewsResultsData);
+		  viewNewsResults(jsonNewsResultsData);
+	      }
+	  }
+	  xmlhttp5.send();
+
+	  return false;
+      }
+
+      function resetForm()
+      {
+	 // insert today's date
+	  var d = new Date();
+	  document.querySelector("#to").value = d.toISOString().substring(0, 10);
+	  // insert last weeks date
+	  d.setDate(d.getDate() - 7 );
+	  document.querySelector("#from").value = d.toISOString().substring(0, 10);
+	  document.forms["myform"]["category"].value="all";
+	  document.forms["myform"]["source"].value="all";
+	  document.forms["myform"]["keyword"].value = "";
+	  document.querySelector(".searchResults").innerHTML = "";
+      }
+
+      // Fill values for sources based on category. First gets called on load. Subsequently gets called on changes made to categories
+      function fillSources() {
+	  var category = document.forms["myform"]["category"].value;
+	  sources = document.forms["myform"]["source"];
+	  while(sources.length > 1) {
+	      sources.remove(sources.length-1);
+	  }
+	  xmlhttp4=new XMLHttpRequest();
+	  if(category == 'all') {
+	      xmlhttp4.open("GET",url+"/sources",true);
+	  } else {
+	      xmlhttp4.open("GET",url+"/sources/"+category,true);
+	  }
+	  xmlhttp4.onreadystatechange= function () {
+	      if(xmlhttp4.readyState == 4 && xmlhttp4.status == 200) {
+		  var jsonSourcesData = JSON.parse(xmlhttp4.responseText);
+		  sourcesData = jsonSourcesData.sources;
+		  for(i=0;i<sources.length;i++) {
+		      var source = sourcesData[i];
+		      var option = document.createElement("option");
+		      option.text = source.name;
+		      option.value = source.id;
+		      sources.append(option);
+		  }
+	      }
+	  }
+	  xmlhttp4.send();
+
+      }
+      
+      function loadSearchPage(){
+	  //Make button blue?
+	  let btn_2 = document.getElementById('btn_2');
+	  btn_2.classList.toggle("active");
+	  let btn_1 = document.getElementById('btn_1');
+	  btn_1.classList.toggle("active");
+
+	  //some cleanup
+	  clearTimeout(timer);
+
+	  // Do your thang!
+	  document.querySelector(".middle").innerHTML="<div class=\"search-box\"><form class=\"form-inline\" name=\"myform\" method=\"POST\" onsubmit=\"return validateForm()\" id=\"location\"><div class=\"row\"><div class=\"col-33\"><label for=\"keyword\">Keyword <span style=\"color: red;\">*</span><input type=\"text\" id=\"keyword\" name=\"keyword\" required></div><div class=\"col-33\"><label for=\"from\">From <span style=\"color: red;\">*</span><input type=\"date\" id=\"from\" name=\"from\" required /></div><div class=\"col-33\"><label for=\"to\">To <span style=\"color: red;\">*</span><input type=\"date\" id=\"to\" name=\"to\" required/></div></div><div class=\"row\"><div class=\"col-50-1\"><label for=\"category\">Category</label><select id=\"category\" name=\"category\" onchange=\"fillSources()\" ><option value='all'>all</option><option value='business'>business</option><option value='entertainment'>entertainment</option><option value='general'>general</option><option value='health'>health</option><option value='science'>science</option><option value='sports'>sports</option><option value='technology'>technology</option></select></div><div class=\"col-50-2\"><label for=\"source\">Source</label><select id=\"source\" name=\"source\"><option value=\"all\">all</option></select></div></div><div class=\"row\"><div class=\"col-50-1\"><input type=\"submit\" name=\"search\" value=\"Search\" /></div><div class=\"col-50-2\"><button onclick='resetForm()'>Clear</button></div></div></form></div><div class='searchResults'></div>";
+
+	  // insert today's date
+	  var d = new Date();
+	  document.querySelector("#to").value = d.toISOString().substring(0, 10);
+	  // insert last weeks date
+	  d.setDate(d.getDate() - 7 );
+	  document.querySelector("#from").value = d.toISOString().substring(0, 10);
+
+	  // Populate sources
+	  fillSources();
+      }
+      url="http://127.0.0.1:5000"
+      loadJSON();
+      
+      </script>      
+  </body>
+</html> 
